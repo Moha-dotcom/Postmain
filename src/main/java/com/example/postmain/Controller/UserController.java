@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -22,16 +23,17 @@ public class UserController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/home")
-    public List<Users> getUsers(){
+    @RequestMapping(method = RequestMethod.GET, value = "/getallUsers")
+    public List<Users> getUsersAll(){
 
         String sql = "SELECT * FROM USERS";
         //A row mapper is used to match the data coming from the database to the attributes of the bean
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Users>(Users.class));
+
     }
 
 
-    @PostMapping("/home/users")
+    @PostMapping("/postusers")
     public int postUsers (@RequestBody Users user){
         Users user1 = new Users();
         user1.setFirstName(user.getFirstName());
@@ -46,6 +48,14 @@ public class UserController {
                 });
 
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getUsers/{id}")
+    public Object getUsers(@PathVariable int id){
+
+        String sql = "SELECT * FROM USERS WHERE id = ?";
+        //A row mapper is used to match the data coming from the database to the attributes of the bean
+        return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper(Users.class));
     }
 
 }
