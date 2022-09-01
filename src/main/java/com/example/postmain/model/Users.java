@@ -1,4 +1,4 @@
-package com.example.postmain;
+package com.example.postmain.model;
 
 
 
