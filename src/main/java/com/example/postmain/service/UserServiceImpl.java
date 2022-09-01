@@ -3,8 +3,6 @@ package com.example.postmain.service;
 import com.example.postmain.dao.UserDao;
 import com.example.postmain.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,10 +27,23 @@ public class UserServiceImpl implements UserService
 
     }
 
-//    @Override
-//    public int postUsers() {
-//        return 0;
-//    }
+    @Override
+    public int postUsers(Users user) {
+       return  userDao.postUser(user);
+    }
 
+    @Override
+    public int updateUser(Users user, int id) {
+        return userDao.updateUser(user, id);
+    }
 
+    @Override
+    public Object getUser(int id) {
+        return userDao.getUsers(id);
+    }
+
+    @Override
+    public Object deleteUser(String firstname, int id) {
+        return userDao.deleteUser(firstname, id);
+    }
 }

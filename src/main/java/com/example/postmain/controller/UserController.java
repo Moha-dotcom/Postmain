@@ -11,70 +11,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/home")
 public class UserController {
 
     @Autowired
     UserService userService;
 
 
+    /**
+     * getUsersAll method returns a List of Users
+     * @return List of Users
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/users")
     public List<Users> getUsersAll(){
-
-
         return userService.getAllUsers();
     }
 
-
-//        @PostMapping("/postusers")
-//    public int postUsers (@RequestBody Users user){
-//        Users user1 = new Users();
-//        user1.setFirstName(user.getFirstName());
-//        user1.setLastName(user.getLastName());
-//        user1.setUsername(user.getUsername());
-//        user1.setEmail(user.getEmail());
-//
-//        String sql = "INSERT INTO USERS (firstname, lastname, username,email) " +
-//                "VALUES (?, ?, ?, ?)";
-//        return jdbcTemplate.update( sql,
-//                (Object[]) new String[]{user1.getFirstName(), user1.getLastName(), user1.getUsername(), user1.getEmail()
-//                });
-//
-//
-//    }
-
-
-
-
-
-    /*
-    It simplifies the use of JDBC and helps to avoid common errors.
-    It executes core JDBC workflow, leaving application code to provide SQL and extract results.
-     This class executes SQL queries or updates, initiating iteration over ResultSets
-      and catching JDBC exceptions and translating them to the generic,
-     more informative exception hierarchy defined in the org.springframework.dao package.
+    /**
+     * getUser returns a single user from the database using an id as Param
+     * @param id
+     * @return
      */
-//    @Autowired
-//    JdbcTemplate jdbcTemplate;
-//
-//    @RequestMapping(method = RequestMethod.GET, value = "/getallUsers")
-//    public List<Users> getUsersAll(){
-//
-//        String sql = "SELECT * FROM USERS";
-//        //A row mapper is used to match the data coming from the database to the attributes of the bean
-//        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Users>(Users.class));
-//
-//    }
-//
-//
-
-//
-//    @RequestMapping(method = RequestMethod.GET, value = "/getUsers/{id}")
-//    public Object getUsers(@PathVariable int id){
-//
-//        String sql = "SELECT * FROM USERS WHERE id = ?";
-//        //A row mapper is used to match the data coming from the database to the attributes of the bean
-//        return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper(Users.class));
-//    }
+    @RequestMapping(method = RequestMethod.GET, value = "/users/{id}")
+    public Object getUser(@PathVariable int id){
+        return userService.getUser(id);
+    }
+    @PostMapping("/users")
+    public int postusers(@RequestBody Users users){
+        return userService.postUsers(users);
+    }
+    @PutMapping("/users/{id}")
+    public int updateUser(@RequestBody Users user, @PathVariable int id ){
+        return userService.updateUser(user, id);
+    }
+    @DeleteMapping("/users/{firstname}/{id}")
+    public Object deleteUser(@PathVariable String firstname, @PathVariable int id){
+        return userService.deleteUser(firstname, id);
+    }
 
 }
 

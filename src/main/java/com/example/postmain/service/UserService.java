@@ -7,5 +7,10 @@ import java.util.List;
 public interface UserService {
 
     public List<Users> getAllUsers();
-//    public int postUsers();
+    public Object getUser(int id);
+
+    public int postUsers(Users user);
+    public int updateUser(Users user, int id);
+    public Object deleteUser(String firstname, int id);
+
 }
