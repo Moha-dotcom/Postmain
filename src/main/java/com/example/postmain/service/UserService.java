@@ -11,6 +11,6 @@ public interface UserService {
 
     public int postUsers(Users user);
     public int updateUser(Users user, int id);
-    public Object deleteUser(String firstname, int id);
+    public Object deleteUser( int id);
 
 }

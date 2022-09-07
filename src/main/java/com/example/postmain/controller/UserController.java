@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/home")
 public class UserController {
 
     @Autowired
@@ -23,7 +22,7 @@ public class UserController {
      * @return List of Users
      */
     @RequestMapping(method = RequestMethod.GET, value = "/users")
-    public List<Users> getUsersAll(){
+    public List<Users> getAllUsers(){
         return userService.getAllUsers();
     }
 
@@ -44,9 +43,9 @@ public class UserController {
     public int updateUser(@RequestBody Users user, @PathVariable int id ){
         return userService.updateUser(user, id);
     }
-    @DeleteMapping("/users/{firstname}/{id}")
-    public Object deleteUser(@PathVariable String firstname, @PathVariable int id){
-        return userService.deleteUser(firstname, id);
+    @DeleteMapping("/users/{id}")
+    public Object deleteUser(@PathVariable int id){
+        return userService.deleteUser(id);
     }
 
 }

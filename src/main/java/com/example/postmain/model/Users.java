@@ -10,7 +10,10 @@ public class Users {
     private String username;
     private String email;
 
-    public Users(String firstName, String lastName, String username, String email) {
+    private String password;
+
+    public Users(String firstName, String lastName, String username, String email, String password) {
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -18,6 +21,14 @@ public class Users {
     }
 
     public Users() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -58,5 +69,16 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
